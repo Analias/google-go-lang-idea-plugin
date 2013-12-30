@@ -19,7 +19,9 @@ class GoFileBlock extends GoBlock {
         VAR_DECLARATIONS,
         TYPE_DECLARATIONS,
         FUNCTION_DECLARATION,
-        METHOD_DECLARATION
+        METHOD_DECLARATION,
+        mSL_COMMENT,
+        mML_COMMENT
     );
 
     public GoFileBlock(ASTNode node, Alignment alignment, Indent indent,
