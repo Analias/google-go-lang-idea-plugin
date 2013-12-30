@@ -6,6 +6,9 @@ import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static ro.redeul.google.go.formatter.blocks.GoFormatterUtil.*;
 
 /**
  * @author Mihai Claudiu Toader <mtoader@gmail.com>
@@ -36,23 +39,17 @@ class GoFileBlock extends GoBlock {
     }
 
     @Override
-    public Spacing getSpacing(Block child1, @NotNull Block child2) {
-        if (!(child1 instanceof GoBlock)) {
-            return null;
-        }
+    public Spacing getSpacing(@Nullable Block child1, @NotNull Block child2) {
 
-        IElementType type1 = ((GoBlock) child1).getNode().getElementType();
-        if (NEED_NEW_LINE_TOKENS.contains(type1)) {
-            if (child2 instanceof GoBlock) {
-                // 2 consecutive same type statements could be put together
-                // e.g. several const declarations could be put together without blank lines
-                IElementType type2 = ((GoBlock) child2).getNode().getElementType();
-                if (type1 == type2) {
-                    return null;
-                }
-            }
+        IElementType typeChild1 = getASTElementType(child1);
+        IElementType typeChild2 = getASTElementType(child2);
 
-            return LINE_SPACING;
+        if (NEED_NEW_LINE_TOKENS.contains(typeChild1)) {
+            if (typeChild1 != typeChild2)
+                return LINE_SPACING;
+
+            return getLineCount(getTextBetween(child1, child2)) > 1
+                        ? LINE_SPACING : ONE_LINE_SPACING;
         }
 
         return null;
