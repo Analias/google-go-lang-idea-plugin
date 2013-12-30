@@ -146,7 +146,8 @@ class GoBlock implements ASTBlock, GoElementTypes {
 
         ASTNode prevChild = null;
         for (ASTNode child : getGoChildren()) {
-            if (child.getTextRange().getLength() == 0 || isWhiteSpaceNode(child.getPsi())) {
+            if (child.getElementType() != END_OF_COMPILATION_UNIT &&
+                    (child.getTextRange().getLength() == 0 || isWhiteSpaceNode(child.getPsi()))) {
                 continue;
             }
 

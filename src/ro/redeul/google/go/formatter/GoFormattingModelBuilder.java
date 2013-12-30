@@ -41,8 +41,12 @@ public class GoFormattingModelBuilder implements FormattingModelBuilder {
         Block block = GoBlockGenerator.generateBlock(fileElement, goSettings);
 
         FormattingModel formattingModel = FormattingModelProvider
-                .createFormattingModelForPsiFile(element.getContainingFile(),
-                        block, settings);
+                .createFormattingModelForPsiFile(
+                        element.getContainingFile(),
+                        block,
+                        settings);
+
+
         FormattingModelDumper.dumpFormattingModel(formattingModel.getRootBlock(), 4, System.out);
         return formattingModel;
     }

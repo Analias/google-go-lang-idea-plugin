@@ -35,7 +35,9 @@ public class GoBlockGenerator {
             LITERAL_IOTA,
             LITERAL_STRING,
             LITERAL_FLOAT, LITERAL_INTEGER, LITERAL_IMAGINARY,
-            LITERAL_IDENTIFIER
+            LITERAL_IDENTIFIER,
+
+            END_OF_COMPILATION_UNIT
     );
 
     private static final Wrap NO_WRAP = Wrap.createWrap(WrapType.NONE, false);
